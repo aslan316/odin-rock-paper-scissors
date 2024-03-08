@@ -40,3 +40,4 @@ function playRound(playerSelection, computerSelection) {
                     return "You tie! Scissors tie Scissors";
             }
     }
+}
