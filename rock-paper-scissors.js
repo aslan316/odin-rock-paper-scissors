@@ -1,12 +1,22 @@
-playGame(5);
+const selections = document.querySelector("#button-container");
+const gameResults = document.querySelector("#game-results");
+const roundResults = document.querySelector("#round-results");
+let numberPlayerWins = 0;
+let numberComputerWins = 0;
 
-function playGame(n) {
-    for (let i = 0; i < n; i++) {
-        const playerSelection = prompt("What will you play: ").toUpperCase();
-        const computerSelection = getComputerChoice();
-        alert(playRound(playerSelection, computerSelection))
+selections.addEventListener("click", (e) => {
+    const playerSelection = e.target.textContent.toUpperCase();
+    const computerSelection = getComputerChoice();
+    
+    roundResults.textContent = playRound(playerSelection, computerSelection);
+    gameResults.textContent = `Player Wins: ${numberPlayerWins}     Computer Wins: ${numberComputerWins}`;
+
+    if (numberComputerWins >= 5 || numberPlayerWins >= 5) {
+        gameResults.textContent = (numberComputerWins >= 5) ?
+                            `Computer Wins!` :
+                            `You Win!`;
     }
-}
+});
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3) + 1;
@@ -27,27 +37,36 @@ function playRound(playerSelection, computerSelection) {
                 case "ROCK":
                     return "You tie! Rock ties Rock";
                 case "PAPER":
+                    numberComputerWins++;
                     return "You lose! Paper beats Rock";
                 case "SCISSORS":
+                    numberPlayerWins++;
                     return "You win! Rock beats Scissors";
             }
+            break;
         case "PAPER":
             switch (computerSelection) {
                 case "ROCK":
+                    numberPlayerWins++;
                     return "You win! Paper beats Rock";
                 case "PAPER":
                     return "You tie! Paper ties Paper";
                 case "SCISSORS":
+                    numberComputerWins++;
                     return "You lose! Scissors beats Paper";
             }
+            break;
         case "SCISSORS":
             switch (computerSelection) {
                 case "ROCK":
+                    numberComputerWins++;
                     return "You lose! Rock beats Scissors";
                 case "PAPER":
+                    numberPlayerWins++;
                     return "You win! Scissors beats Paper";
                 case "SCISSORS":
                     return "You tie! Scissors tie Scissors";
             }
+            break;
     }
 }
