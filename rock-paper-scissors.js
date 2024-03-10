@@ -4,7 +4,7 @@ function playGame(n) {
     for (let i = 0; i < n; i++) {
         const playerSelection = prompt("What will you play: ").toUpperCase();
         const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection))
+        alert(playRound(playerSelection, computerSelection))
     }
 }
 
